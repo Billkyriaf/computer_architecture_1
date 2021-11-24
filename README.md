@@ -1,2 +1,17 @@
-# computer_architecture_1
-Introduction to the gem5 simulator.
+<div id="top"></div>
+
+<br />
+<div align="center">
+  <h1 align="center">Computer Arcitecture Assignment 1</h1>
+  <h3 align="center">Aristotle University of Thessaloniki</h3>
+  <h4 align="center">School of Electrical & Computer Engineering</h4>
+  <p align="center">
+    Contributors: Kyriafinis Vasilis, Nikos Giannopoulos
+    <br />
+    Winter Semester 2021 - 2022
+    <br />
+    <br />
+    <br />
+    <br />
+  </p>
+</div>
