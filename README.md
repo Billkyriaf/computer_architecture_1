@@ -90,5 +90,23 @@
   
 </div>
   
+  <div align = "left">
+  <h2 align = "center"> Question : Change a parameter of the editor and observe the results for both different CPU models.</h2>
+  <br />
+  <div align = "left">
+   &nbsp;&nbsp;&nbsp;&nbsp;We'll try to change the frequency of operation in both cases and the memory technology. <br />
+  
+  then we run the following command:<br /> leipei to compile 
+  <h4>./build/ARM/gem5.opt -d TimeSimpleCPU configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=TimingSimpleCPU --caches </h4> <br />
+  And we get the following file after the end of the simulation:<br />
+    <h4>TimeSimpleCPU_changed/TimeSimpleCPU_stats_changed.txt </h4>
+  and as before we're running the: <br /> leipei to compile 
+  <h4>./build/ARM/gem5.opt -d MinorCPU configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=MinorCPU --caches</h4> <br />
+  And we get the following file after the end of the simulation:<br />
+    <h4>MinorCPU_changed/MinorCPU_stats_changed.txt</h4> <br />
+ </div>
+</div>
+ 
+  
 
 
