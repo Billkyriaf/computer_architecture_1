@@ -18,13 +18,13 @@
 <br />
 
 <div align = "center">
-  <h1 align ="center" >There are many CPU models which are GEM5 or the CPU categories are as follows </h1>
+  <h1 align ="center" >Υπάρχουν πολλά μοντέλα CPU που περιέχει ο GEM5  οι κατηγορίες CPU είναι οι εξής </h1>
   <h3 align ="left"> 
     <ul>
-      <li>SimpleCPU - A good place to start learning about how to fetch, decode, execute, and complete instructions in M5.</li>
-      <li>O3CPU - Specific documentation on how all of the pipeline stages work, and how to modify and create new CPU models based on it. </li>
-      <li>Checker - Details how to use it in your CPU model. </li>
-      <li>InOrderCPU - Specific documentation on how all of the pipeline stages work, and how to modify and create new CPU models based on it.</li>
+      <li>SimpleCPU - Ένα καλό μέρος για να ξεκινήσετε να μαθαίνετε πώς να παίρνετε, να αποκωδικοποιείτε, να εκτελείτε και να ολοκληρώνετε εντολές στον M5.</li>
+      <li>O3CPU - Ειδική τεκμηρίωση σχετικά με τον τρόπο λειτουργίας όλων των σταδίων του αγωγού και τον τρόπο τροποποίησης και δημιουργίας νέων μοντέλων CPU. </li>
+      <li>Checker - Λεπτομέρειες για τον τρόπο χρήσης του στο μοντέλο της CPU σας. </li>
+      <li>InOrderCPU - Ειδική τεκμηρίωση σχετικά με τον τρόπο λειτουργίας όλων των σταδίων του pipeline και τον τρόπο τροποποίησης και δημιουργίας νέων μοντέλων CPU.</li>
     </ul>
   </div>
   
@@ -32,7 +32,7 @@
     <div align = "left">
        <h2 align = "left" >InOrder CPUs</h3> 
       <p align = "left">
-&nbsp;&nbsp;&nbsp;&nbsp;The InOrder CPU model was designed to provide a generic framework to simulate in-order pipelines with an arbitrary ISA and with arbitrary pipeline descriptions. The model was originally conceived by closely mirroring the O3CPU model to provide a simulation framework that would operate at the "Tick" granularity. We then abstract the individual stages in the O3 model to provide generic pipeline stages for the InOrder CPU to leverage in creating a user-defined amount of pipeline stages. Additionally, we abstract each component that a CPU might need to access (ALU, Branch Predictor, etc.) into a "resource" that needs to be requested by each instruction according to the resource-request model we implemented. This will potentially allow for researchers to model custom pipelines without the cost of designing the complete CPU from scratch. 
+&nbsp;&nbsp;&nbsp;&nbsp;Το μοντέλο της CPU InOrder σχεδιάστηκε για να παρέχει ένα γενικό πλαίσιο για την προσομοίωση αγωγών κατά παραγγελία με αυθαίρετο ISA και με αυθαίρετες περιγραφές αγωγών. Το μοντέλο σχεδιάστηκε αρχικά αντικατοπτρίζοντας στενά το μοντέλο O3CPU για να παρέχει ένα πλαίσιο προσομοίωσης που θα λειτουργούσε με την ευαισθησία "Tick". Στη συνέχεια, αφαιρούμε τα επιμέρους στάδια στο μοντέλο O3 για να παρέχουμε γενικά στάδια διοχέτευσης για την CPU InOrder που θα αξιοποιήσει στη δημιουργία ενός αριθμού σταδίων διοχέτευσης που καθορίζεται από τον χρήστη. Επιπλέον, αφαιρούμε κάθε στοιχείο στο οποίο μπορεί να χρειαστεί πρόσβαση μια CPU (ALU, Branch Predictor, κ.λπ.) σε έναν "πόρο" που πρέπει να ζητηθεί από κάθε εντολή σύμφωνα με το μοντέλο αιτήματος πόρων που εφαρμόσαμε. Αυτό θα επιτρέψει δυνητικά στους ερευνητές να μοντελοποιήσουν προσαρμοσμένες σωληνώσεις χωρίς το κόστος σχεδιασμού της πλήρους CPU από την αρχή.
       </p>
   </div>
   <br />
@@ -40,13 +40,13 @@
   <div align = "left">
        <h2 align = "left">InOrder Pipeline Stages</h2> 
       <p align = "left">
-          &nbsp;&nbsp;&nbsp;&nbsp;Pipeline stages in the InOrder CPU are implemented as abstract implementations of what a pipeline stage would be in any CPU model. Typically, one would imagine a particularly pipeline stage being responsible for:<br />
-  (1) Performing specific operations such as "Decode" or "Execute" and either <br />
-  (2a) Sending that instruction to the next stage if that operation was successful and the next stage's buffer has room for incoming instructions <br />
-  or <br />
-  (2b) Keeping that instruction in the pipeline's instruction buffer if that operation was unsuccesful or there is no room in the next stage's buffer<br /> 
+          &nbsp;&nbsp;&nbsp;&nbsp;Τα στάδια αγωγών στην InOrder CPU υλοποιούνται ως αφηρημένες υλοποιήσεις του τι θα ήταν ένα στάδιο αγωγών σε οποιοδήποτε μοντέλο CPU. Τυπικά, θα μπορούσε κανείς να φανταστεί ότι ένα συγκεκριμένο στάδιο αγωγού είναι υπεύθυνο για:<br />
+  (1) Εκτέλεση συγκεκριμένων λειτουργιών όπως "Decode" ή "Execute" και είτε <br />
+  (2α) Αποστολή της εν λόγω εντολής στο επόμενο στάδιο, εάν η εν λόγω λειτουργία ήταν επιτυχής και ο απομονωτής του επόμενου σταδίου έχει χώρο για εισερχόμενες εντολές <br />
+  ή <br />
+  (2β) Διατήρηση της εντολής αυτής στον απομονωτή εντολών του αγωγού, εάν η λειτουργία αυτή ήταν ανεπιτυχής ή δεν υπάρχει χώρος στον απομονωτή του επόμενου σταδίου<br /> 
 
-  &nbsp;&nbsp;&nbsp;&nbsp;The "PipelineStage" class maintains the functionality of (2a) and (2b) but abstracts (1) out of the implementation. More specifically, no pipeline stage is explicitly marked "Decode" or "Execute". Instead, the PipelineStage class allows the instruction and it's corresponding instruction schedule to define what tasks they want to do in a particular stage.
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Η κλάση "PipelineStage" διατηρεί τη λειτουργικότητα των (2α) και (2β), αλλά αφαιρεί την (1) από την υλοποίηση. Πιο συγκεκριμένα, κανένα στάδιο αγωγού δεν χαρακτηρίζεται ρητά ως "Decode" ή "Execute". Αντ' αυτού, η κλάση PipelineStage επιτρέπει στην εντολή και το αντίστοιχο πρόγραμμα εντολών να ορίζουν τις εργασίες που θέλουν να κάνουν σε ένα συγκεκριμένο στάδιο.
       </p>
   </div>
   
@@ -55,10 +55,13 @@
   <div align = "left">
        <h2 align = "left">InOrder Instruction Schedules</h3> 
       <p align = "left">
-  &nbsp;&nbsp;&nbsp;&nbsp;At the heart of the InOrderCPU model is the concept of Instruction Schedules (IS). Instruction schedules create the generic framework that allow for developer's to make a custom pipeline. A pipeline definition can be seen as a collection of instruction schedules that govern what an instruction will do in any given stage and what stage that instruction will go to next. 
-  In general, each instruction has a stage-by-stage list of tasks that need to be accomplished before moving on to the next stage. This list we refer to as the instruction's schedule. Each list is composed of "ScheduleEntry"s that define a task for the instruction to do for a given pipeline stage. 
-  Instruction scheduling is then divided into a front-end schedule (e.g. Instruction Fetch and Decode) which is uniform for all the instructions, and a back-end schedule, which varies across the different instructions (e.g. a 'addu' instruction and a 'mult' instruction need to access different resources). 
-  The combination of a front-end schedule and a back-end schedule make up the instruction schedule. Ideally, changing the pipeline can be as simple as editing how a certain class of instructions operate by editing the instruction schedule functions. 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Στην καρδιά του μοντέλου InOrderCPU βρίσκεται η έννοια των χρονοδιαγραμμάτων εντολών (IS). Τα χρονοδιαγράμματα οδηγιών δημιουργούν το γενικό πλαίσιο που επιτρέπει στους προγραμματιστές να δημιουργήσουν μια προσαρμοσμένη διοχέτευση. Ο ορισμός του αγωγού μπορεί να θεωρηθεί ως μια συλλογή από χρονοδιαγράμματα εντολών που διέπουν το τι θα κάνει μια εντολή σε οποιοδήποτε δεδομένο στάδιο και σε ποιο στάδιο θα μεταβεί αυτή η εντολή στη συνέχεια.
+
+Σε γενικές γραμμές, κάθε οδηγία έχει μια σταδιακή λίστα εργασιών που πρέπει να ολοκληρωθούν πριν προχωρήσετε στο επόμενο στάδιο. Αυτή η λίστα αναφερόμαστε ως το πρόγραμμα των οδηγιών. Κάθε λίστα αποτελείται από "ScheduleEntry" που ορίζουν μια εργασία που πρέπει να κάνει η εντολή για ένα δεδομένο στάδιο αγωγού.
+
+Στη συνέχεια, ο προγραμματισμός εντολών χωρίζεται σε ένα πρόγραμμα front-end (π.χ. Instruction Fetch and Decode) το οποίο είναι ομοιόμορφο για όλες τις εντολές και ένα back-end χρονοδιάγραμμα, το οποίο ποικίλλει μεταξύ των διαφορετικών εντολών (π.χ. μια εντολή "addu" και μια "mult Οδηγίες πρέπει να έχουν πρόσβαση σε διαφορετικούς πόρους).
+
+Ο συνδυασμός ενός προγράμματος front-end και ενός back-end χρονοδιαγράμματος συνθέτουν το πρόγραμμα των οδηγιών. Στην ιδανική περίπτωση, η αλλαγή του αγωγού μπορεί να είναι τόσο απλή όσο η επεξεργασία του τρόπου λειτουργίας μιας συγκεκριμένης κατηγορίας εντολών με την επεξεργασία των συναρτήσεων του προγράμματος εντολών. 
   </p>
 </div>
   
@@ -70,39 +73,39 @@
   
   
 <div align = "left">
-  <h2 align = "center"> Question : Using different CPU models and keeping all other parameters the same. Use the TimingSimpleCPU and MinorCPU.</h2>
+  <h2 align = "center"> Ερώτηση : Χρησιμοποιώντας διαφορετικά μοντέλα CPU και διατηρώντας όλες τις άλλες παραμέτρους ίδιες. Χρησιμοποιήστε τα TimingSimpleCPU και MinorCPU.</h2>
   <br />
   <div align = "left">
-   &nbsp;&nbsp;&nbsp;&nbsp;The simpleExample.c file is a simple program that generates 2 tables with random values of 3x3 floating point values which was compiled with the following command:<br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Το αρχείο simpleExample.c είναι ένα απλό πρόγραμμα που παράγει 2 πίνακες με τυχαίες τιμές 3x3 τιμών κινητής υποδιαστολής, το οποίο μεταγλωττίζεται με την ακόλουθη εντολή:<br />
   
   <h4>arm-linux-gnueabihf-gcc --static tests/test-progs/simplyTableExample/simpleExample.c -o tests/test-progs/simplyTableExample/simpleExample.out </h4><br>
-  Then having previously compiled with the command:<br />
+  Στη συνέχεια, έχοντας προηγουμένως μεταγλωττίσει με την εντολή:<br />
     <h4>scons build/ARM/gem5.opt -j 2 -force-lto </h4><br />
-  then we run the following command:<br />
+  τότε εκτελούμε την ακόλουθη εντολή:<br />
   <h4>./build/ARM/gem5.opt -d TimeSimpleCPU configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=TimingSimpleCPU --caches </h4> <br />
-  And we get the following file after the end of the simulation:<br />
+  Μετά το τέλος της προσομοίωσης λαμβάνουμε το ακόλουθο αρχείο:<br />
     <h4>TimeSimpleCPU/TimeSimpleCPU_stats.txt </h4>
-  and as before we're running the: <br />
+  και όπως προηγουμένως τρέχουμε το: <br />
   <h4>./build/ARM/gem5.opt -d MinorCPU configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=MinorCPU --caches</h4> <br />
-  And we get the following file after the end of the simulation:<br />
+  Μετά το τέλος της προσομοίωσης λαμβάνουμε το ακόλουθο αρχείο:<br />
     <h4>MinorCPU/MinorCPU_stats.txt</h4> <br />
  </div>
   
 </div>
   
   <div align = "left">
-  <h2 align = "center"> Question : Change a parameter of the editor and observe the results for both different CPU models.</h2>
+  <h2 align = "center"> Ερώτηση : Αλλάξτε μια παράμετρο του επεξεργαστή και παρατηρήστε τα αποτελέσματα για τα δύο διαφορετικά μοντέλα CPU.</h2>
   <br />
   <div align = "left">
-   &nbsp;&nbsp;&nbsp;&nbsp;We'll try to change the frequency of operation in both cases and the memory technology. <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Θα προσπαθήσουμε να αλλάξουμε τη συχνότητα λειτουργίας και στις δύο περιπτώσεις και την τεχνολογία μνήμης. <br />
   
-  then we run the following command:<br /> leipei to compile 
+  τότε εκτελούμε την ακόλουθη εντολή:<br /> leipei to compile 
   <h4>./build/ARM/gem5.opt -d TimeSimpleCPU configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=TimingSimpleCPU --caches </h4> <br />
-  And we get the following file after the end of the simulation:<br />
+  Και παίρνουμε το ακόλουθο αρχείο μετά το τέλος της προσομοίωσης:<br />
     <h4>TimeSimpleCPU_changed/TimeSimpleCPU_stats_changed.txt </h4>
-  and as before we're running the: <br /> leipei to compile 
+  και όπως και προηγουμένως τρέχουμε το: <br /> leipei to compile 
   <h4>./build/ARM/gem5.opt -d MinorCPU configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=MinorCPU --caches</h4> <br />
-  And we get the following file after the end of the simulation:<br />
+  Μετά το τέλος της προσομοίωσης λαμβάνουμε το ακόλουθο αρχείο:<br />
     <h4>MinorCPU_changed/MinorCPU_stats_changed.txt</h4> <br />
  </div>
 </div>
