@@ -1,0 +1,21 @@
+Global frequency set at 1000000000000 ticks per second
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 20.1.0.5
+gem5 compiled Nov 25 2021 16:07:58
+gem5 started Nov 26 2021 14:16:26
+gem5 executing on nick-VirtualBox, pid 8199
+command line: ./build/ARM/gem5.opt -d TimingSimple__changed_mem_type configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=TimingSimpleCPU --mem-type=DDR4_2400_16x4 --caches
+
+**** REAL SIMULATION ****
+1. Initializing Matrices 
+2. Matrix A is: 
+0.840188	0.783099	0.911647	
+0.335223	0.277775	0.477397	
+0.364784	0.952230	0.635712	
+3. Matrix B is: 
+0.394383	0.798440	0.197551	
+0.768230	0.553970	0.628871	
+0.513401	0.916195	0.717297	
+Exiting @ tick 114281000 because exiting with last active thread context
