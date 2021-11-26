@@ -16,19 +16,19 @@
   </p>
 </div>
 
-# Emulation Parameters
+# Simulation Parameters (Question 1)
 
-The file `starter_se.py` contains the script that defines the characteristics of the system to be emulated. The command to run the emulation is:
+The file `starter_se.py` contains the script that defines the characteristics of the system to be emulated. The command to run the simulation is:
 
     ./build/ARM/gem5.opt configs/example/arm/starter_se.py --cpu="minor" "tests/test-progs/hello/bin/arm/linux/hello"
 
-* The `configs/example/arm/starter_se.py` flag is the path to configuration script of the emulation
+* The `configs/example/arm/starter_se.py` flag is the path to configuration script of the simulation
 * The `--cpu="minor"` `"tests/test-progs/hello/bin/arm/linux/hello"` are the command line arguments for the configuration script
   * `--cpu="minor"`: Defines the type of the CPU to be used (default="atomic").
   * `"tests/test-progs/hello/bin/arm/linux/hello"`: The path to the executable binary that will run in the emulator.
 
 
-In the lines 189 to 208 of the file `starter_se.py` the arguments are parsed. For this emulations only the above arguments were provided, so all the other arguments defaulted to the values specified in the script. 
+In the lines 189 to 208 of the file `starter_se.py` the arguments are parsed. For this simulation only the above arguments were provided, so all the other arguments defaulted to the values specified in the script. 
 
 
 * `--cpu-freq`: CPU clock frequency. Default = 1GHz
@@ -63,3 +63,13 @@ Depending on the types of the CPU it is determined if the system will have cache
 * **_L2 Cache_**: L2 Cache is shared between all of the cores.
   
       self.cpu_cluster.addL2(self.cpu_cluster.clk_domain)
+
+<br/>
+
+# Run Statistics (Question 2)
+
+The `stats.txt` file contains information about the simulation from all the SimObjects. At the end of the simulation the statistics are automatically dumped to the file. Some important information can be derived from the bellow values:
+
+* **_sim_seconds_**: Number of seconds simulated (0.000035 s). This is the time the binary took to execute in the simulator.
+* **_sim_insts_**: The total number of instructions that where simulated (5027 instructions).
+* **_host_inst_rate_**: The instructions per second of the simulator on the host machine (118842 inst/s). Basically this is the performance of the gem5 simulator. 
