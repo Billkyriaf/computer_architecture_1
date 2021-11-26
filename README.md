@@ -130,7 +130,7 @@ In our case the number of misses on the L2 cache are:
 
 * 147 misses for data:
       
-      system.cpu_cluster.l2.demand_misses::.cpu_cluster.cpus.inst  327    # number of demand (read+write) misses
+      system.cpu_cluster.l2.demand_misses::.cpu_cluster.cpus.data  147    # number of demand (read+write) misses
 
 The number of instruction misses are the same on the L1 and L2 caches because the different instructions executed fitted inside the L1 instruction cache and the L2 cache. That means the instructions where requested by the CPU and were loaded from the DRAM so for every instruction fetched there was an initial compulsory miss.
 <br/>
@@ -199,7 +199,7 @@ And we get the [**_TimeSimpleCPU_stats.txt_**](Question_4/TimeSimpleCPU/TimeSimp
 
     ./build/ARM/gem5.opt -d MinorCPU configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=MinorCPU --caches
 
-And we get the [**_MinorCPU_stats.txt_**](Question_4/MinorCPU/MinorCPU_stats.txt) file after the end of the simulation:<br />
+And we get the [**_MinorCPU_stats.txt_**](Question_4/MinorCPU/MinorCPU_stats.txt) file after the end of the simulation.<br />
 
 
 # 7. Change parameters and detect differences (Question 4b)
