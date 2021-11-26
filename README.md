@@ -16,47 +16,50 @@
   </p>
 </div>
 
-# Παράμετροι Simulation
+# Emulation Parameters
 
-Στο αρχείο `starter_se.py` βρίσκεται το script στο οποίο δηλώθηκαν τα χαρακτηριστικά του συστήματος για την εξομοίωση. Η εντολή που έτρεξε για την εξομοίωση αυτή ήταν: 
+The file `starter_se.py` contains the script that defines the characteristics of the system to be emulated. The command to run the emulation is:
 
     ./build/ARM/gem5.opt configs/example/arm/starter_se.py --cpu="minor" "tests/test-progs/hello/bin/arm/linux/hello"
 
+* The `configs/example/arm/starter_se.py` flag is the path to configuration script of the emulation
+* The `--cpu="minor"` `"tests/test-progs/hello/bin/arm/linux/hello"` are the command line arguments for the configuration script
+  * `--cpu="minor"`: Defines the type of the CPU to be used (default="atomic").
+  * `"tests/test-progs/hello/bin/arm/linux/hello"`: The path to the executable binary that will run in the emulator.
 
-* Το `configs/example/arm/starter_se.py` δηλώνει ποιό configuration script θα χρησιμοποιηθεί για την τρέχουσα εξομοίωση
-* Τα `--cpu="minor"` `"tests/test-progs/hello/bin/arm/linux/hello"` είναι τα command line arguments για το configuration script
-  * `--cpu="minor"`: Δηλώνει τον τύπο του cpu που θα χρησιμοποιηθεί (default="atomic").
-  * `"tests/test-progs/hello/bin/arm/linux/hello"`: Το path στο εκτελέσιμο που θα τρέξει σε αυτή την εξομοίωση.
 
-Στο αρχείο `starter_se.py` στις γραμμές 189 μέχρι 208 γίνονται parse τα arguments για το πρόγραμμα. Στην συγκεκριμένη εξομοίωση δόθηκαν μόνο τα δύο παραπάνω ορίσματα συνεπώς στα υπόλοιπα δόθηκαν οι default τιμές:
+In the lines 189 to 208 of the file `starter_se.py` the arguments are parsed. For this emulations only the above arguments were provided, so all the other arguments defaulted to the values specified in the script. 
 
-* `--cpu-freq`: Η συχνότητα του ρολογιού του επεξεργαστή. Default = 1GHz
-* `--num-cores`: Το πλήθος των πυρήνων του επεξεργαστή. Default = 1
-* `--mem-type`: Το είδος της μνήμης του συστήματος. Default = `DDR3_1600_8x8` δηλαδή Transfer rate = 1.6 x 8 x 8 x 1/8 = 12.8GBps
-* `--mem-channels`: Το πλήθος των καναλιών της μνήμης. Default = 2
-* `--mem-ranks`: Το πλήθος των ranks ανά κανάλι μνήμης. Default = None
-* `--mem-size`: Το μέγεθος της μνήμης. Default = 2GB
 
-Τα βασικά μέρη του συστήματος που δημιουργούνται στο configuration script είναι:
+* `--cpu-freq`: CPU clock frequency. Default = 1GHz
+* `--num-cores`: Number of cores of the CPU. Default = 1
+* `--mem-type`: Type of system memory. Default = `DDR3_1600_8x8` meaning Transfer rate = 1.6 x 8 x 8 x 1/8 = 12.8GBps
+* `--mem-channels`: The number of memory channels. Default = 2
+* `--mem-ranks`: Number of ranks per memory channel. Default = None
+* `--mem-size`: Memory size. Default = 2GB
 
-* **_Ρολόι συστήματος_**: Το ρολόι έχει default συχνότητα 1GHz και είναι διαφορετικό από αυτό του επεξεργαστή. Για να αλλάξει η συχνότητα αυτή πρέπει αν γίνει αλλαγή στην παρακάτω γραμμή
+
+## The main modules of the system
+
+* **_System Clock_**: The system clock has a default frequency of 1GHz and it is not the same clock with the CPU clock. To change the system clock frequency the value in the below line must be changed.
   
       self.clk_domain = SrcClockDomain(clock="1GHz",voltage_domain=self.voltage_domain)
 
-* **_Memory bus_**: Το memory bus συνδέει τον επεξεργαστή με την DRAM.
+* **_Memory bus_**: The memory bus connects the CPU with the system memory.
   
       self.membus = SystemXBar()
 
-* **_CPU_**: Ο τύπος και η συχνότητα του CPU καθορίζεται απο τα ορίσματα που δίνονται στο script. Για να αλλάξει η συχνότητα του επεξεργαστή πρέπει να δοθεί το argument `--cpu-freq`.
+* **_CPU_**: The type and the frequency of the CPU are determined by the command line arguments. To change the default frequency of the CPU the `--cpu-freq` argument must be passed to the script.
   
       devices.`path/to/binary`(self, args.num_cores, args.cpu_freq, "1.2V", *cpu_types[args.cpu])
 
-Αναλόγως με τον τύπο του CPU καθορίζεται το αν θα υπάρχουν μνήμες Cache η όχι. Αν το μοντέλο της μνήμης δεν είναι atomic, δηλαδή τα δεδομένα διαβάζονται απο την μνήμη με πιο ρεαλιστικό τρόπο, δημιουργούνται 2 επίπεδα Cache. 
 
-* **_L1 Cache_**: Η L1 cache είναι private για τον κάθε πυρήνα αυτό σημαίνει ότι ο κάθε πυρήνας έχει την δική του μνήμη και δεν έχει πρόσβαση σε αυτές των άλλων πυρήνων. 
+Depending on the types of the CPU it is determined if the system will have cache memories. If the memory model is not Atomic, which means the data are read from the memory with no delays, 2 cache levels are created. 
+
+* **_L1 Cache_**: L1 cache is private to each core, so that every core can only access his L1 cache. 
   
       self.cpu_cluster.addL1()
 
-* **_L2 Cache_**: Η L2 Cache είναι κοινή για όλους τους πυρήνες.
+* **_L2 Cache_**: L2 Cache is shared between all of the cores.
   
       self.cpu_cluster.addL2(self.cpu_cluster.clk_domain)
