@@ -16,7 +16,7 @@
   </p>
 </div>
 
-# Simulation Parameters (Question 1)
+# Simulation Parameters  (Question 1)
 
 The file `starter_se.py` contains the script that defines the characteristics of the system to be emulated. The command to run the simulation is:
 
@@ -75,6 +75,26 @@ The `stats.txt` file contains information about the simulation from all the SimO
 * **_host_inst_rate_**: The instructions per second of the simulator on the host machine (118842 inst/s). Basically this is the performance of the gem5 simulator.
 
 
+<br />
+
+# CPI (Question 3)
+
+In order to calculate the CPI (Clocks per instruction) the total cache misses for L1 data and instructions and the total cache misses for L2 are needed. Also the miss penalties and hit penalties for both levels of cache and finally the total number of instruction executed are required. The mathematical type is very simple: 
+
+<br/>
+
+<div align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\bg_white&space;\fn_jvn&space;CPI&space;=&space;1&space;&plus;&space;\frac{(\text{IL1.miss\_num&space;&plus;&space;\text{DL1.miss\_num}})\times&space;6&space;&plus;&space;\text{L2.miss\_num}\times&space;50}{\text{Total\_Inst\_num}}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\dpi{100}&space;\bg_white&space;\fn_jvn&space;CPI&space;=&space;1&space;&plus;&space;\frac{(\text{IL1.miss\_num&space;&plus;&space;\text{DL1.miss\_num}})\times&space;6&space;&plus;&space;\text{L2.miss\_num}\times&space;50}{\text{Total\_Inst\_num}}" title="CPI = 1 + \frac{(\text{IL1.miss\_num + \text{DL1.miss\_num}})\times 6 + \text{L2.miss\_num}\times 50}{\text{Total\_Inst\_num}}" /></a>
+</div>
+<br/>
+
+The first 1 is there because if we miss on the L1 cache we have already paid for the hit penalty. Afterward all the cycles spent dealing with the miss are counted and finally the average per instruction is calculated by dividing with the number of the total instructions.
+<br/>
+In our case the 
+
+
+
+
 # Sources
 
 [A Tutorial on the Gem5 Memory Model](https://nitish2112.github.io/post/gem5-memory-model/)
@@ -84,3 +104,5 @@ The `stats.txt` file contains information about the simulation from all the SimO
 [Understanding gem5 statistics and output](http://learning.gem5.org/book/part1/gem5_stats.html)
 
 [Understanding gem5 statistics and output Gem5](https://www.gem5.org/documentation/learning_gem5/part1/gem5_stats/)
+
+[What are system clock and CPU clock](https://cs.stackexchange.com/questions/32149/what-are-system-clock-and-cpu-clock-and-what-are-their-functions)
