@@ -161,7 +161,7 @@ At the heart of the InOrderCPU model is the concept of Instruction Schedules (IS
 
 <br />
 
-# Compile and run a C program for ARM (Question 4a)
+# Compile and simulate a C program for ARM (Question 4a)
 
 The simpleExample.c file is a simple program that generates 2 tables with random values of 3x3 floating point values which was compiled with the following command:
 
@@ -278,3 +278,4 @@ We'll try to change the frequency of operation and the memory technology in both
 
 [What are system clock and CPU clock](https://cs.stackexchange.com/questions/32149/what-are-system-clock-and-cpu-clock-and-what-are-their-functions)
 
+# Σχόλια για την εργασία
