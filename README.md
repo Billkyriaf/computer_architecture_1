@@ -72,4 +72,15 @@ The `stats.txt` file contains information about the simulation from all the SimO
 
 * **_sim_seconds_**: Number of seconds simulated (0.000035 s). This is the time the binary took to execute in the simulator.
 * **_sim_insts_**: The total number of instructions that where simulated (5027 instructions).
-* **_host_inst_rate_**: The instructions per second of the simulator on the host machine (118842 inst/s). Basically this is the performance of the gem5 simulator. 
+* **_host_inst_rate_**: The instructions per second of the simulator on the host machine (118842 inst/s). Basically this is the performance of the gem5 simulator.
+
+
+# Sources
+
+[A Tutorial on the Gem5 Memory Model](https://nitish2112.github.io/post/gem5-memory-model/)
+
+[Creating SimObjects in the memory system](http://learning.gem5.org/book/part2/memoryobject.html)
+
+[Understanding gem5 statistics and output](http://learning.gem5.org/book/part1/gem5_stats.html)
+
+[Understanding gem5 statistics and output Gem5](https://www.gem5.org/documentation/learning_gem5/part1/gem5_stats/)
