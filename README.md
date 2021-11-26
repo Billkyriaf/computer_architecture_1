@@ -17,7 +17,27 @@
 </div>
 <br />
 
-# Simulation Parameters  (Question 1)
+# 1. Contents
+- [1. Contents](#1-contents)
+- [2. Simulation Parameters  (Question 1)](#2-simulation-parameters--question-1)
+  - [2.1. The main modules of the system](#21-the-main-modules-of-the-system)
+- [3. Run Statistics (Question 2)](#3-run-statistics-question-2)
+- [4. CPI (Question 3)](#4-cpi-question-3)
+- [5. Documentation References (Question 4)](#5-documentation-references-question-4)
+  - [5.1. Gem5 CPU models](#51-gem5-cpu-models)
+  - [5.2. InOrder CPUs](#52-inorder-cpus)
+  - [5.3. InOrder Pipeline Stages](#53-inorder-pipeline-stages)
+  - [5.4. InOrder Instruction Schedules](#54-inorder-instruction-schedules)
+- [6. Compile and simulate a C program for ARM (Question 4a)](#6-compile-and-simulate-a-c-program-for-arm-question-4a)
+- [7. Change parameters and detect differences (Question 4b)](#7-change-parameters-and-detect-differences-question-4b)
+  - [7.1. Changing the operation frequency](#71-changing-the-operation-frequency)
+  - [7.2. Changing memory technology](#72-changing-memory-technology)
+- [8. Sources](#8-sources)
+- [9. Σχόλια για την εργασία](#9-σχόλια-για-την-εργασία)
+
+<br/>
+
+# 2. Simulation Parameters  (Question 1)
 
 The file `starter_se.py` contains the script that defines the characteristics of the system to be emulated. The command to run the simulation is:
 
@@ -40,7 +60,7 @@ In the lines 189 to 208 of the file `starter_se.py` the arguments are parsed. Fo
 * `--mem-size`: Memory size. Default = 2GB
 
 
-## The main modules of the system
+## 2.1. The main modules of the system
 
 * **_System Clock_**: The system clock has a default frequency of 1GHz and it is not the same clock with the CPU clock. To change the system clock frequency the value in the below line must be changed.
   
@@ -67,7 +87,7 @@ Depending on the types of the CPU it is determined if the system will have cache
 
 <br/>
 
-# Run Statistics (Question 2)
+# 3. Run Statistics (Question 2)
 
 The `stats.txt` file contains information about the simulation from all the SimObjects. At the end of the simulation the statistics are automatically dumped to the file. Some important information can be derived from the bellow values:
 
@@ -77,7 +97,7 @@ The `stats.txt` file contains information about the simulation from all the SimO
 
 <br />
 
-# CPI (Question 3)
+# 4. CPI (Question 3)
 
 In order to calculate the CPI (Clocks per instruction) the total cache misses for L1 data and instructions and the total cache misses for L2 are needed. Also the miss penalties and hit penalties for both levels of cache and finally the total number of instruction executed are required. The mathematical type is very simple: 
 
@@ -128,21 +148,21 @@ Applying the above data to the equation gives `CPI = 6.32 cycles per instruction
 
 <br/>
 
-# Documentation References (Question 4)
+# 5. Documentation References (Question 4)
 
-## Gem5 CPU models
+## 5.1. Gem5 CPU models
 
 * **_SimpleCPU_** - A good place to start learning about how to fetch, decode, execute, and complete instructions in M5.
 * **_O3CPU_** - Specific documentation on how all of the pipeline stages work, and how to modify and create new CPU models based on it.
 * **_Checker_** - Details how to use it in your CPU model.
 * **_InOrderCPU_** - Specific documentation on how all of the pipeline stages work, and how to modify and create new CPU models based on it.
 
-## InOrder CPUs
+## 5.2. InOrder CPUs
 The InOrder CPU model was designed to provide a generic framework to simulate in-order pipelines with an arbitrary ISA and with arbitrary pipeline descriptions. The model was originally conceived by closely mirroring the O3CPU model to provide a simulation framework that would operate at the "Tick" granularity. We then abstract the individual stages in the O3 model to provide generic pipeline stages for the InOrder CPU to leverage in creating a user-defined amount of pipeline stages. Additionally, we abstract each component that a CPU might need to access (ALU, Branch Predictor, etc.) into a "resource" that needs to be requested by each instruction according to the resource-request model we implemented. This will potentially allow for researchers to model custom pipelines without the cost of designing the complete CPU from scratch. 
 
 <br />
 
-## InOrder Pipeline Stages
+## 5.3. InOrder Pipeline Stages
 Pipeline stages in the InOrder CPU are implemented as abstract implementations of what a pipeline stage would be in any CPU model. Typically, one would imagine a particularly pipeline stage being responsible for:
   1. Performing specific operations such as "Decode" or "Execute" and either 
   2. Sending that instruction to the next stage if that operation was successful and the next stage's buffer has room for incoming instructions 
@@ -155,13 +175,13 @@ The "PipelineStage" class maintains the functionality of (2a) and (2b) but abstr
         
 <br />
 
-## InOrder Instruction Schedules
+## 5.4. InOrder Instruction Schedules
 
 At the heart of the InOrderCPU model is the concept of Instruction Schedules (IS). Instruction schedules create the generic framework that allow for developer's to make a custom pipeline. A pipeline definition can be seen as a collection of instruction schedules that govern what an instruction will do in any given stage and what stage that instruction will go to next. In general, each instruction has a stage-by-stage list of tasks that need to be accomplished before moving on to the next stage. This list we refer to as the instruction's schedule. Each list is composed of "ScheduleEntry"s that define a task for the instruction to do for a given pipeline stage. Instruction scheduling is then divided into a front-end schedule (e.g. Instruction Fetch and Decode) which is uniform for all the instructions, and a back-end schedule, which varies across the different instructions (e.g. a 'addu' instruction and a 'mult' instruction need to access different resources). The combination of a front-end schedule and a back-end schedule make up the instruction schedule. Ideally, changing the pipeline can be as simple as editing how a certain class of instructions operate by editing the instruction schedule functions. 
 
 <br />
 
-# Compile and simulate a C program for ARM (Question 4a)
+# 6. Compile and simulate a C program for ARM (Question 4a)
 
 The simpleExample.c file is a simple program that generates 2 tables with random values of 3x3 floating point values which was compiled with the following command:
 
@@ -184,11 +204,11 @@ And we get the [**_TimeSimpleCPU_stats.txt_**](Question_4/TimeSimpleCPU/TimeSimp
 And we get the [**_MinorCPU_stats.txt_**](Question_4/MinorCPU/MinorCPU_stats.txt) file after the end of the simulation:<br />
 
 
-# Change parameters and detect differences (Question 4b)
+# 7. Change parameters and detect differences (Question 4b)
 
 We'll try to change the frequency of operation and the memory technology in both cases.
     
-## Changing the operation frequency
+## 7.1. Changing the operation frequency
 
 * ### TimingSimpleCPU
   To change the operating frequency for CPU TimingSimpleCPU we execute the following command:
@@ -226,7 +246,7 @@ We'll try to change the frequency of operation and the memory technology in both
 
 <br/>
 
-## Changing memory technology
+## 7.2. Changing memory technology
 
 * ### TimingSimpleCPU
   
@@ -266,7 +286,7 @@ We'll try to change the frequency of operation and the memory technology in both
 
 <br/>
 
-# Sources
+# 8. Sources
 
 [A Tutorial on the Gem5 Memory Model](https://nitish2112.github.io/post/gem5-memory-model/)
 
@@ -278,4 +298,6 @@ We'll try to change the frequency of operation and the memory technology in both
 
 [What are system clock and CPU clock](https://cs.stackexchange.com/questions/32149/what-are-system-clock-and-cpu-clock-and-what-are-their-functions)
 
-# Σχόλια για την εργασία
+<br/>
+
+# 9. Σχόλια για την εργασία
