@@ -64,10 +64,6 @@
   
  <br />
 <br />
-<br />
-<br />
-<br />
-  
   
 <div align = "left">
   <h2 align = "center"> Question : Using different CPU models and keeping all other parameters the same. Use the TimingSimpleCPU and MinorCPU.</h2>
@@ -95,14 +91,46 @@
   <br />
   <div align = "left">
    &nbsp;&nbsp;&nbsp;&nbsp;We'll try to change the frequency of operation in both cases and the memory technology. <br />
-  
-  then we run the following command:<br /> leipei to compile 
-  <h4>./build/ARM/gem5.opt -d TimeSimpleCPU configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=TimingSimpleCPU --caches </h4> <br />
-  And we get the following file after the end of the simulation:<br />
-    <h4>TimeSimpleCPU_changed/TimeSimpleCPU_stats_changed.txt </h4>
-  and as before we're running the: <br /> leipei to compile 
-  <h4>./build/ARM/gem5.opt -d MinorCPU configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=MinorCPU --caches</h4> <br />
-  And we get the following file after the end of the simulation:<br />
-    <h4>MinorCPU_changed/MinorCPU_stats_changed.txt</h4> <br />
+    first case of changing the operating frequency we execute the following command for CPU TimingSimpleCPU<br />
+    <h4>./build/ARM/gem5.opt -d TimeSimpleCPU_changed configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=TimingSimpleCPU --cpu-clock=2.5GHz --caches </h4><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;where at the exit you will notice the difference in the "tick"<br />
+   <h4> Exiting @ tick 99151200 because exiting with last active thread context </h4><br />
+   &nbsp;&nbsp;&nbsp;&nbsp; Compared to the original results where we hadn't touched the frequency at all <br />
+    <h4> Exiting @ tick 114677000 because exiting with last active thread context </h4> <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;The difference between the original frequency and the new frequency that we defined before making the subtraction is 114.677.000 - 99.151.200=15.525.800
+That's due to the higher frequency but the same size and architectural memory.Where TimingSimpleCPU 1GHz is better than the same but with a frequency of 2.5GHz<br />
+    <br />
+  <div align = "left">Now as before we will do the analysis for the different frequency for the architectural CPU MinorCPU.
+    <h4> ./build/ARM/gem5.opt -d MinorCPU_changed configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=MinorCPU --cpu-clock=2.5GHz --caches</h4><br /> 
+    &nbsp;&nbsp;&nbsp;&nbsp;and is taken to the exit
+    <h4>Exiting @ tick 77432400 because exiting with last active thread context</h4> <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;Comparing it with the original situation without any change in frequency <br />
+    <h4>Exiting @ tick 84846000 because exiting with last active thread context</h4> <br />
+  &nbsp;&nbsp;&nbsp;&nbsp; As before, making the difference we get 84.846.000-77.432.400= 7.413.600 and again we end up having a small difference (not like the previous one) with the higher frequency in the MinorCPU processor. <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;So we understand that the difference in frequency affects the operation of the processor too much, sometimes it affects it too much like in the first case with the TimingSImpleCPU, sometimes less like the MinorCPU.TimingSimpleCPU uses memory accesses with timing. It delays accesses to cache memory and waits for the memory system response before proceeding. Like the AtomicSimpleCPU, the TimingSimpleCPU is also derived from the BaseSimpleCPU and implements the same set of functions. It defines the port used to connect to the memory and connects the CPU to the cache. It also defines the necessary functions for handling the response from memory to the accesses sent.
  </div>
+    
+<br />
+
+<div align = "left">&nbsp;&nbsp;&nbsp;&nbsp;Now we will see the shift in memory technology for each case first case of changing the RAM architecture we execute the following command for CPU TimingSimpleCPU<br />
+    <h4>./build/ARM/gem5.opt -d TimingSimple__changed_mem_type configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=TimingSimpleCPU --mem-type=DDR4_2400_16x4 --caches</h4><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;where at the exit as before you will notice the difference in the "tick"<br />
+   <h4> Exiting @ tick 114281000 because exiting with last active thread context </h4><br />
+   &nbsp;&nbsp;&nbsp;&nbsp; Compared to the initial results where we had not touched the memory technology at all<br />
+    <h4> Exiting @ tick 114677000 because exiting with last active thread context </h4> <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;The difference between the original memory technology and the new one we defined before removing the ticks is 114.677.000 - 114281000=396.000 
+This is due to the higher GB/s transmission which is 2.4 * 16*16*4*1/8 = 19.2GBps but having the same frequency as the original. <br />
+    <br />
+  <div align = "left">Now, as before, we will do the analysis for the different memory primitives in the MinorCPU processor.<br />
+    <h4> ./build/ARM/gem5.opt -d MinorCPU_changed_mem_type configs/example/se.py --cmd=tests/test-progs/simplyTableExample/simpleExample.out --cpu-type=MinorCPU --mem-type=DDR4_2400_16x4 --caches</h4><br /> 
+    &nbsp;&nbsp;&nbsp;&nbsp;and is taken to the exit
+    <h4>Exiting @ tick 80777000 because exiting with last active thread context</h4> <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;Compared to the initial results where we had not touched the memory technology at all <br />
+    <h4>Exiting @ tick 84846000 because exiting with last active thread context</h4> <br />
+   &nbsp;&nbsp;&nbsp;&nbsp; As before, making the difference we have 84.846.000-80.777.000= 4.069.000 and again we end up with a small difference (not like the previous one) with the different memory technology in the MinorCPU processor.<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;So we understand that the difference in memory technology moderately affects the operation of the processor.The TimingSimpleCPU uses timing memory accesses. But here due to the faster and larger GBps transfer rate of the RAM memory used was better in comparison to the MInorCPU and all the disadvantages created before are negated. But the MinorCPU uses InOrder technology for which it uses a fixed pipeline but with configurable data structures and execution behavior but due to the fixed pipeline the higher the speed of transfers to and from it after the "upper limit" of the pipeline it stops progressing and thus becomes worse than TimingSimpleCPU.
+    </div>
+    
+    
 </div>
+  
