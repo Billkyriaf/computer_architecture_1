@@ -296,6 +296,16 @@ We'll try to change the frequency of operation and the memory technology in both
 
 [What are system clock and CPU clock](https://cs.stackexchange.com/questions/32149/what-are-system-clock-and-cpu-clock-and-what-are-their-functions)
 
+[Gem5 CPU models](http://www.m5sim.org/CPU_Models)
+
+[inOrder CPUs that GEM5 uses](http://www.m5sim.org/InOrder)
+
+[TimingSimpleCPU](https://www.gem5.org/documentation/general_docs/cpu_models/SimpleCPU)
+
+[MinorCPU](https://www.gem5.org/documentation/general_docs/cpu_models/minor_cpu)
+
+[Using the default configuration scripts(se.py)](http://learning.gem5.org/book/part1/example_configs.html)
+
 <br/>
 
 # 9. Σχόλια για την εργασία
