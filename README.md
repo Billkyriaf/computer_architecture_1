@@ -68,6 +68,9 @@ In the lines 189 to 208 of the file `starter_se.py` the arguments are parsed. Fo
   
       self.membus = SystemXBar()
 
+* **_DRAM_**: The Dynamic Random Access Memory of the sytem. By default the `starter_se.py` script specifies `DDR3_1600_8x8` but this can be changed by setting the flag `--mem-type {type of DRAM}`.
+
+
 * **_CPU_**: The type and the frequency of the CPU are determined by the command line arguments. To change the default frequency of the CPU the `--cpu-freq` argument must be passed to the script.
   
       devices.`path/to/binary`(self, args.num_cores, args.cpu_freq, "1.2V", *cpu_types[args.cpu])
@@ -79,7 +82,7 @@ Depending on the types of the CPU it is determined if the system will have cache
   
       self.cpu_cluster.addL1()
 
-* **_L2 Cache_**: L2 Cache is shared between all of the cores.
+* **_L2 Cache_**: L2 Cache is shared between all of the cores and is unified, meaning the data and the instructions use the same memory.
   
       self.cpu_cluster.addL2(self.cpu_cluster.clk_domain)
 
