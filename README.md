@@ -243,7 +243,7 @@ We'll try to change the frequency of operation and the memory technology in both
   As before, making the difference we get `84.846.000-77.432.400= 7.413.600` and again we end up having a small difference (not like the previous one) with the higher frequency in the MinorCPU processor.
 
 * ### Conclusion
-  So we understand that the difference in frequency affects the operation of the processor too much, sometimes it affects it too much like in the first case with the TimingSImpleCPU, sometimes less like the MinorCPU.TimingSimpleCPU uses memory accesses with timing. It delays accesses to cache memory and waits for the memory system response before proceeding. Like the AtomicSimpleCPU, the TimingSimpleCPU is also derived from the BaseSimpleCPU and implements the same set of functions. It defines the port used to connect to the memory and connects the CPU to the cache. It also defines the necessary functions for handling the response from memory to the accesses sent.
+  We understand that the difference in frequency affects the operation of the processor very much, sometimes it affects it very much as in the first case with TimingSImpleCPU, sometimes less like MinorCPU.TimingSimpleCPU uses timing memory accesses. It delays cache accesses and waits for the memory system to respond before proceeding. Like the AtomicSimpleCPU, the TimingSimpleCPU is derived from the BaseSimpleCPU and implements the same set of functions. It defines the port used to connect to the memory and connects the CPU to the cache. It also defines the necessary functions to handle the response from memory to the accesses sent.The conclusion is that the TimingSimpleCPU is faster than the MinorCPU and this can be seen in the 'tick' after the frequency change.
 
 <br/>
 
@@ -283,8 +283,7 @@ We'll try to change the frequency of operation and the memory technology in both
 
 * ### Conclusion
 
-  So we understand that the difference in memory technology moderately affects the operation of the processor.The TimingSimpleCPU uses timing memory accesses. But here due to the faster and larger GBps transfer rate of the RAM memory used was better in comparison to the MInorCPU and all the disadvantages created before are negated. But the MinorCPU uses InOrder technology for which it uses a fixed pipeline but with configurable data structures and execution behavior but due to the fixed pipeline the higher the speed of transfers to and from it after the "upper limit" of the pipeline it stops progressing and thus becomes worse than TimingSimpleCPU.
-
+  So we understand that the difference in memory technology moderately affects the operation of the processor.TimingSimpleCPU uses timed memory accesses. But here due to the faster and higher GBps transfer rate of RAM used was better compared to MinorCPU and all the disadvantages created earlier are negated. But MinorCPU uses InOrder technology for which it uses a fixed pipeline but with configurable data structures and execution behavior but due to the fixed pipeline the higher the speed of transfers to and from it after the "upper limit" of the pipeline it stops progressing and thus becomes worse than TimingSimpleCPU. The conclusion is that MinorCPU is faster than TimingSimpleCPU this is seen in the difference in both 'tick' after the memory technology change.
 <br/>
 
 # 8. Sources
